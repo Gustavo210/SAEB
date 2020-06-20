@@ -1,0 +1,31 @@
+*{
+    font-family: 'Nunito', sans-serif;
+}
+label{
+    font-weight: 700;
+}
+.titulo-login{
+    font-size: 3em;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: 700;
+    color:rgb(134, 134, 134);
+    text-align: center;
+}
+
+body{
+    background-color: #03A696;
+}
+.loginCadastro {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100vh;
+}
+.imagem> img{
+    width: 100%;
+}
+.fundo{
+    background-color: white;
+    padding: 20px;
+    margin: 2%;
+    border-radius: 5px;
+}

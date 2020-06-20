@@ -1,0 +1,69 @@
+.tag {
+    font-size: 1.2em;
+}
+body{
+    background-color: #F1F1F1;
+}
+
+td {
+    border-bottom: black solid 1px;
+    text-align: center;
+}
+
+.dados {
+    background-color: gray;
+    color: #fff;
+    padding: 5px 20px;
+}
+.data{
+    font-size:1em;
+}
+.sucesso{
+    background-color: green;
+    color:#fff;
+    padding: 20px 15px;
+    border-radius: 5px;
+}
+.erro{
+    border: 1px solid crimson;
+    background-color: rgb(255, 227, 233);
+}
+nav{
+    background-color: #03A696;
+    color:white;
+}
+ul {
+    list-style-type:none
+}
+.resposta{
+    max-height: 100vh;
+    overflow-x: auto;
+}
+.apresentacao{
+    background-color: white;
+    margin: 1%;
+    border-radius: 5px;
+    padding: 10px 20px 10px 5px;
+}
+.card-instituicoes,
+.card-colaborador,
+.card-aluno{
+    background-color: white;
+    margin: 5px 10px;
+    border-radius: 5px;
+    padding: 10px 5px ;
+}
+.title{
+    margin-bottom: 2%;
+}
+.title >div >span{
+    background-color: #2FBBF0;
+    padding: 5px 10px;
+    color: white;
+    font-weight: 700;
+    border-radius: 20px;
+}
+.titulo_conteudo{
+    border-bottom: rgb(195, 195, 195) solid 2px;
+    color:rgb(85, 85, 85)
+}

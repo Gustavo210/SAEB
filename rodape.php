@@ -1,22 +1,22 @@
 <script src="core/js/index.js?id=<?=rand()?>"></script>
 <?php switch ($_SERVER['REQUEST_URI']) {
-    case '/home.php':
+    case '/SAEB/home.php':
         echo "<script src='core/js/home.js?id=".rand()."'></script>";
         break;
 
-    case '/professor.php':
+    case '/SAEB/professor.php':
         echo "<script src='core/js/colaborador.js?id=".rand()."'></script>";
         break;
 
-    case '/escola.php':
+    case '/SAEB/escola.php':
         echo "<script src='core/js/instituicao.js?id=".rand()."'></script>";
         break;
     
-    case '/aluno.php':
+    case '/SAEB/aluno.php':
         echo "<script src='core/js/aluno.js?id=".rand()."'></script>";
         break;
     
-    case '/editar.php':
+    case '/SAEB/editar.php':
         echo "<script src='core/js/editar.js?id=".rand()."'></script>";
         break;}?>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"

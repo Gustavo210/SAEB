@@ -54,7 +54,7 @@
             $('.endereco').val(response.endereco)
             $('.cnpj').val(response.cnpj)
             $('.diretor').val(response.diretor)
-            $('.telefone').val(response.telefone)
+            $('.telefone').val(formataTelefone(response.telefone))
             $('.email').val(response.email)
             $('.user').val(response.user)
             $('.senha').val(response.senha)
@@ -63,6 +63,7 @@
         }})
     })
     $('#salvar_cadastro').on('click',function(){
+        $('.form-control').removeClass('erro')
         var nome = $('.nome').val()
         var endereco = $('.endereco').val()
         var cnpj = $('.cnpj').val()
@@ -74,23 +75,23 @@
         var user = $('.user').val()
         var senha = $('.senha').val()
 
-        if(nome.length<=5)
+        if(nome.length<=2)
             {$('.nome').addClass('erro');}
-        if(endereco<5)
+        if(endereco.length<5)
             {$('.endereco').addClass('erro');}
         if(cnpj.length<14)
-            {$('.telefone').addClass('erro');}
+            {$('.cnpj').addClass('erro');}
         if(diretor=="")
             {$('.diretor').addClass('erro');}
-        if(telefone<10)
+        if(telefone.length<10)
             {$('.telefone').addClass('erro');}
         if(email.length<5)
             {$('.email').addClass('erro');}
-        if(user.length<5)
+        if(user.length<2)
             {$('.user').addClass('erro');}
-        if(senha.length<5)
+        if(senha.length<1)
             {$('.senha').addClass('erro');}
-        if($('.form-control').hasClass('erro')){return}
+        if(!$('.form-control').hasClass('erro')){
 
         $.ajax({
         url:`${urlInstituicao + <?=$_POST['id']?>}/`,
@@ -115,23 +116,11 @@
                     }
                 });
             },
-            error(){
-                $.confirm({
-                    title: 'Erro',
-                    content: 'Erro editar dados',
-                    type: 'red',
-                    typeAnimated: true,
-                    buttons: {
-                        tryAgain: {
-                            text: 'Ok',
-                            btnClass: 'btn-red',
-                            action: function(){
-                            }
-                        }
-                    }
-                });
-            }
+            error(){popError("Instituição")}
         
         })
+    }else{
+            popError("Instituição")
+        }
     })
 </script>

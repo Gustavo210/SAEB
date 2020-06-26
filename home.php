@@ -1,6 +1,6 @@
 <?php require_once 'cabecalho.php';
 if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
-
+<div class="container-fluid">
 <div class="infoPainel">
   <div class="row m-0">
     <div class="col-sm-auto apresentacao">
@@ -11,7 +11,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
     <div class="col-sm-auto"></div>
   </div>
 </div>
-<div class="container">
+
   <div class="row">
 
     <div class="col-sm  card-colaborador">
@@ -25,8 +25,8 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
       </div>
       <div class="titulo_conteudo">
       <div class="row">
-        <div class="col col-sm"><strong>Nome</strong></div>
-        <div class="col col-sm"><strong>E-mail</strong></div>
+        <div class="col col-sm text-center"><strong>Nome</strong></div>
+        <div class="col col-sm text-center"><strong>E-mail</strong></div>
       </div>
       </div>
       <div class="colaborador_row"></div>
@@ -43,8 +43,8 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
       </div>
       <div class="titulo_conteudo">
       <div class="row">
-        <div class="col col-sm"><strong>Nome</strong></div>
-        <div class="col col-sm"><strong>Diretora</strong></div>
+        <div class="col col-sm text-center"><strong>Nome</strong></div>
+        <div class="col col-sm text-center"><strong>Diretora</strong></div>
       </div>
       </div>
       <div class="escola_row"></div>
@@ -62,8 +62,8 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
 <div class="titulo_conteudo">
 
   <div class="row">
-    <div class="col col-sm"><strong>Nome</strong></div>
-    <div class="col col-sm"><strong>Turma</strong></div>
+    <div class="col col-sm text-center"><strong>Nome</strong></div>
+    <div class="col col-sm text-center"><strong>Turma</strong></div>
   </div>
 </div>
       <div class="aluno_row"></div>

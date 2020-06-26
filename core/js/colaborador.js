@@ -5,12 +5,16 @@ $(document).ready(function () {
         var escola = $('.escola').val()
         var telefone = $('.telefone').val()
         var cpf = $('.cpf').val()
-        var datanasc = $('.datanasc').val()
+        var dataform = $('.datanasc').val().split('/')
+        if(dataform[0]<1 || dataform[0]>31 ||
+            dataform[1]<1||dataform[1]>12||
+            dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+        var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
         var email = $('.email').val()
         var user = $('.user').val()
         var senha = $('.senha').val()
                     
-        if(nome.length<=5)
+        if(nome.length<=2)
             {$('.nome').addClass('erro');}
         if(escola=="")
             {$('.escola').addClass('erro');}
@@ -18,56 +22,47 @@ $(document).ready(function () {
             {$('.telefone').addClass('erro');}
         if(cpf.length<11)
             {$('.cpf').addClass('erro');}
-        if(datanasc=="")
+        if(datanasc.length!=10)
             {$('.datanasc').addClass('erro');}
         if(email.length<=5)
             {$('.email').addClass('erro');}
-        if(user.length<=3)
+        if(user.length<=2)
             {$('.user').addClass('erro');}
-        if(senha.length<3)
+        if(senha.length<1)
             {$('.senha').addClass('erro');}
-        if($('.form-control').hasClass('erro')){return}
+        if(!$('.form-control').hasClass('erro')){
 
-        $.ajax({
-            url: urlColaborador,
-            headers: {"Authorization": token},
-            type:"POST",
-            dataType:"json",
-            data:{escola,nome,cpf,telefone,email,datanasc,user,senha},
-            success(){
-                $.confirm({
-                    title: 'Sucesso',
-                    content: 'Usuário cadastrado com sucesso!',
-                    type: 'green',
-                    typeAnimated: true,
-                    buttons: {
-                        tryAgain: {
-                            text: 'Ok',
-                            btnClass: 'btn-green',
-                            action: function(){
-                                location.reload();
+            $.ajax({
+                url: urlColaborador,
+                headers: {"Authorization": token},
+                type:"POST",
+                dataType:"json",
+                data:{escola,nome,cpf,telefone,email,datanasc,user,senha},
+                success(){
+                    $.confirm({
+                        title: 'Sucesso',
+                        content: 'Usuário cadastrado com sucesso!',
+                        type: 'green',
+                        typeAnimated: true,
+                        buttons: {
+                            tryAgain: {
+                                text: 'Ok',
+                                btnClass: 'btn-green',
+                                action: function(){
+                                    location.reload();
+                                }
                             }
                         }
-                    }
-                });
-            },
-            error(){
-                $.confirm({
-                    title: 'Erro',
-                    content: 'Erro ao cadastrar usuário',
-                    type: 'red',
-                    typeAnimated: true,
-                    buttons: {
-                        tryAgain: {
-                            text: 'Ok',
-                            btnClass: 'btn-red',
-                            action: function(){
-                            }
-                        }
-                    }
-                });
-            }
-        })
+                    });
+                },
+                error(){
+                    popError("Colaborador")
+                }
+            })
+
+        }else{
+            popError("Colaborador")
+        }
     })
 
     $.ajax({

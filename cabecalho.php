@@ -17,6 +17,7 @@
     <script src="https://kit.fontawesome.com/16d67f6777.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="core/css/geral.css">
+    <script src="core\js\jquery.mask.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,700;0,900;1,300;1,600;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   </head>
@@ -34,17 +35,17 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link aba-colaborador" style="color:#fff" href="professor.php"><i class="fas fa-users"></i> Cadastrar Colaborador</a>
+          <a class="nav-link aba-colaborador" style="color:#fff" href="professor.php"><i class="fas fa-users"></i> Colaborador</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link aba-instituicao"style="color:#fff" href="escola.php"><i class="fas fa-school"></i> Cadastrar Instituição</a>
+          <a class="nav-link aba-instituicao"style="color:#fff" href="escola.php"><i class="fas fa-school"></i> Instituição</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link aba-aluno"style="color:#fff" href="aluno.php"><i class="fas fa-child"></i> Cadastrar Aluno</a>
+          <a class="nav-link aba-aluno"style="color:#fff" href="aluno.php"><i class="fas fa-child"></i> Aluno</a>
         </li>
       </ul>
       <form action="index.php" method="post">
-        <button class="btn my-2 my-sm-0"style="color:#fff" name="sair" type="submit">sair</button>
+        <button class="btn my-2 my-sm-0"style="color:#fff" name="sair" type="submit"><i class="fas fa-sign-out-alt    "></i> Sair</button>
       </form>
     </div>
   </nav>

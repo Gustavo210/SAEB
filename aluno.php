@@ -22,7 +22,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
                     </div>
                 </fieldset>
                 <span class="tag">Nascimento:</span>
-                <input class="form-control datanasc" type="date">
+                <input class="form-control datanasc" type="text">
                 <span class="tag">Turma:</span>
                 <select class="turma form-control">
                     <option value="">Turma</option>

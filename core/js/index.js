@@ -45,3 +45,25 @@ $(document).ready(function () {
         });
     });
 });
+
+$('.datanasc').mask('00/00/0000', {placeholder: "__/__/____"});
+$('.cpf').mask('000.000.000-00');
+$('.cnpj').mask('00.000.000/0000-00');
+$('.telefone').mask('(00) 0 0000-0000');
+
+function popError(param){
+    $.confirm({
+        title: 'Erro',
+        content: `Erro ao cadastrar ${param}`,
+        type: 'red',
+        typeAnimated: true,
+        buttons: {
+            tryAgain: {
+                text: 'Ok',
+                btnClass: 'btn-red',
+                action: function(){
+                }
+            }
+        }
+    });
+}

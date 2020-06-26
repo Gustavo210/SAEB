@@ -14,7 +14,7 @@
                 <span>CPF:</span>
                 <input type="text" class="form-control cpf">
                 <span>Data de Nascimento:</span>
-                <input type="date" class="form-control datanasc">
+                <input type="text" class="form-control datanasc">
                 <span>E-mail:</span>
                 <input type="email" class="form-control email">
                 <span>Nome de usuário:</span>
@@ -46,41 +46,46 @@
         success(response){
             $('.nome').val(response.nome)
             $('.escola').val(response.escola)
-            $('.telefone').val(response.telefone)
-            $('.cpf').val(response.cpf)
-            $('.datanasc').val(response.datanasc)
+            $('.telefone').val(formataTelefone(response.telefone))
+            $('.cpf').val(formataCpf(response.cpf))
+            $('.datanasc').val(dateToEN(response.datanasc))
             $('.email').val(response.email)
             $('.user').val(response.user)
             $('.senha').val(response.senha)
         }})
     })
     $('#salvar_cadastro').on('click',function(){
+        $('.form-control').removeClass('erro')
         var nome = $('.nome').val()
         var escola = $('.escola').val()
         var telefone = $('.telefone').val()
         var cpf = $('.cpf').val()
-        var datanasc = $('.datanasc').val()
+        var dataform = $('.datanasc').val().split('/')
+        if(dataform[0]<1 || dataform[0]>31 ||
+            dataform[1]<1||dataform[1]>12||
+            dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+        var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
         var email = $('.email').val()
         var user = $('.user').val()
         var senha = $('.senha').val()
 
-        if(nome.length<=5)
+        if(nome.length<=2)
             {$('.nome').addClass('erro');}
         if(escola=="")
             {$('.escola').addClass('erro');}
         if(telefone.length<10)
             {$('.telefone').addClass('erro');}
-        if(cpf<10)
+        if(cpf.length<11)
             {$('.cpf').addClass('erro');}
-        if(datanasc=="")
+        if(datanasc.length!=10)
             {$('.datanasc').addClass('erro');}
         if(email.length<5)
             {$('.email').addClass('erro');}
-        if(user.length<5)
+        if(user.length<2)
             {$('.user').addClass('erro');}
-        if(senha.length<5)
+        if(senha.length<1)
             {$('.senha').addClass('erro');}
-        if($('.form-control').hasClass('erro')){return}
+        if(!$('.form-control').hasClass('erro')){
         $.ajax({
         url:`${urlColaborador + <?=$_POST['id']?>}/`,
         headers: {"Authorization": token},
@@ -104,23 +109,11 @@
                     }
                 });
             },
-            error(){
-                $.confirm({
-                    title: 'Erro',
-                    content: 'Erro editar dados',
-                    type: 'red',
-                    typeAnimated: true,
-                    buttons: {
-                        tryAgain: {
-                            text: 'Ok',
-                            btnClass: 'btn-red',
-                            action: function(){
-                            }
-                        }
-                    }
-                });
-            }
+            error(){popError("Colaborador")}
         
         })
+    }else{
+            popError("Colaborador")
+        }
     })
 </script>

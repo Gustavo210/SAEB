@@ -24,7 +24,7 @@
                         </div>
                     </fieldset>
                     <span class="tag">Nascimento:</span>
-                    <input class="form-control datanasc" type="date">
+                    <input class="form-control datanasc" type="text">
                     <span class="tag">Turma:</span>
                     <select class="turma form-control">
                         <option value="">Turma</option>
@@ -80,11 +80,11 @@
                 $('.nome').val(response.nome)
                 if(response.sexo=="M"){$('.generoM').attr('checked',true)}
                     else if(response.sexo=="F"){$('.generoF').attr('checked',true)}
-                $('.datanasc').val(response.datanasc)
+                $('.datanasc').val(dateToEN(response.datanasc))
                 $('.turma').val(response.turma)
                 $('.professor').val(response.professor)
                 $('.responsavel').val(response.nome_responsavel)
-                $('.telefone').val(response.telefone_responsavel)
+                $('.telefone').val(formataTelefone(response.telefone_responsavel))
                 $('.matricula').val(response.matricula)
             }})
         })
@@ -95,7 +95,11 @@
             var nome = $('.nome').val()
             if($('.generoM').is(':checked')){sexo = "M"}
             if($('.generoF').is(':checked')){sexo = "F"}
-            var datanasc = $('.datanasc').val()
+            var dataform = $('.datanasc').val().split('/')
+            if(dataform[0]<1 || dataform[0]>31 ||
+                dataform[1]<1||dataform[1]>12||
+                dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+            var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
             var turma = $('.turma').val()
             var professor = $('.professor').val()
             var nome_responsavel = $('.responsavel').val()
@@ -104,7 +108,7 @@
 
             if(nome.length<=5)
                 {$('.nome').addClass('erro');}
-            if(datanasc=="")
+            if(datanasc.length!=10)
                 {$('.datanasc').addClass('erro');}
             if(turma=="")
                 {$('.turma').addClass('erro');}
@@ -112,11 +116,11 @@
                 {$('.professor').addClass('erro');}
             if(nome_responsavel.length<5)
                 {$('.responsavel').addClass('erro');}
-            if(matricula.length<5)
+            if(matricula.length<2)
                 {$('.matricula').addClass('erro');}
             if(telefone_responsavel.length<10)
                 {$('.telefone').addClass('erro');}
-            if($('.form-control').hasClass('erro')){return}
+            if(!$('.form-control').hasClass('erro')){
 
         $.ajax({
         url:`${urlAluno + <?=$_POST['id']?>}/`,
@@ -141,24 +145,12 @@
                     }
                 });
             },
-            error(){
-                $.confirm({
-                    title: 'Erro',
-                    content: 'Erro editar dados',
-                    type: 'red',
-                    typeAnimated: true,
-                    buttons: {
-                        tryAgain: {
-                            text: 'Ok',
-                            btnClass: 'btn-red',
-                            action: function(){
-                            }
-                        }
-                    }
-                });
-            }
+            error(){popError("Aluno")}
         
         })
+    }else{
+            popError("Aluno")
+        }
     })
 
     </script>

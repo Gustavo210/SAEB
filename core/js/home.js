@@ -16,9 +16,9 @@ $(document).ready(function () {
                         headers: {"Authorization": token},
                         success(escola){
                     $('.aluno_row').append(`
-                    <div usuario="${data[i].id}" class="row">
+                    <div usuario="${data[i].id}" class=" row">
                     <div class="col data">${data[i].nome}</div>
-                    <div class="col data">${escola.nome}</div>
+                    <div class="col data text-center">${escola.nome}</div>
                     </div>`)
                 }})
                 }
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 if(e<=9){
                     $('.escola_row').append(`<div usuario="${data[e].id}" class="row">
                     <div class="col data">${data[e].nome}</div>
-                    <div class="col data">${data[e].diretor}</div>
+                    <div class="col data text-center">${data[e].diretor}</div>
                     </div>`)
                 }
                 count++
@@ -71,7 +71,7 @@ $(document).ready(function () {
                     $('.colaborador_row')
                     .append(`<div usuario="${data[c].id}" class="row">
                     <div class="col data">${data[c].nome}</div>
-                    <div class="col data">${data[c].email}</div>
+                    <div class="col data text-center">${data[c].email}</div>
                     </div>`)
                 }
                 count++

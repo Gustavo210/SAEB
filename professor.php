@@ -21,7 +21,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
         <input type="text" class="form-control cpf">
 
         <span>Data de Nascimento:</span>
-        <input type="date" class="form-control datanasc" >
+        <input type="text" class="form-control datanasc" >
         <span>E-mail:</span>
         <input type="email" class="form-control email" >
         <span>Nome de usuário:</span>
@@ -45,5 +45,4 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
             </div>
         </div>
     </div>
-    
 <?php require_once "rodape.php";

@@ -4,35 +4,42 @@ $(document).ready(function () {
         var nome = $('.nome').val()
         var sexoM = $('.sexoM')
         var sexoF = $('.sexoF')
-        var datanasc = $('.datanasc').val()
+        var dataform = $('.datanasc').val().split('/')
+        if(dataform[0]<1 || dataform[0]>31 ||
+            dataform[1]<1||dataform[1]>12||
+            dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+        var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
         var turma = $('.turma').val()
         var professor = $('.professor').val()
         var matricula = $('.matricula').val()
         var nome_responsavel = $('.responsavel').val()
         var telefone_responsavel = $('.telefone').val()
                     
-        if(nome.length<=5)
+        if(nome.length<=2)
             {$('.nome').addClass('erro');}
-        if(sexoM.is(':checked')){
-            var sexo = "M"
-        }
-        if(sexoF.is(':checked')){
-            var sexo = "F"
-        }
-        if(datanasc=="")
+
+        if(datanasc.length!=10)
             {$('.datanasc').addClass('erro');}
         if(turma=="")
             {$('.turma').addClass('erro');}
         if(professor=="")
             {$('.professor').addClass('erro');}
-        if(matricula<=5)
+        if(matricula<=2)
             {$('.matricula').addClass('erro');}
-        if(nome_responsavel.length<=5)
+        if(nome_responsavel.length<=2)
             {$('.responsavel').addClass('erro');}
         if(telefone_responsavel.length<10)
             {$('.telefone').addClass('erro');}
+        if(sexoM.is(':checked')){
+            var sexo = "M"
+        }else
+        if(sexoF.is(':checked')){
+            var sexo = "F"
+        }else{
+            popError("Sexo"); return
+        }
 
-        if($('.form-control').hasClass('erro')){return}
+        if(!$('.form-control').hasClass('erro')){
 
         $.ajax({
             url: urlAluno,
@@ -74,6 +81,10 @@ $(document).ready(function () {
                 });
             }
         })
+
+    }else{
+        popError("Aluno")
+    }
     })
 
 

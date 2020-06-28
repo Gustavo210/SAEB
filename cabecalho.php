@@ -9,7 +9,7 @@
   <html lang="pt-br">
   
   <head>
-    <title>Painel SAEB Escola</title>
+    <title>Painel SABE Escola</title>
     <meta charset="utf-8">
     <meta name="theme-color" content="#03A696">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

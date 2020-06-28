@@ -1,6 +1,7 @@
 var urlColaborador = `https://crmg.herokuapp.com/api/v1/professor/`
 var urlAluno = `https://crmg.herokuapp.com/api/v1/aluno/`
 var urlInstituicao = `https://crmg.herokuapp.com/api/v1/escola/`
+var urlLogin = `https://crmg.herokuapp.com/api/v1/loginescola/`
 var token = `Token f77f538699515c7177256df7429365cb7a7ed6be`
 var resposta = `<div id="retorno">carregando</div>`
 var erro = `<div id="retorno">A pagina não foi encontrada</div>`
@@ -67,3 +68,35 @@ function popError(param){
         }
     });
 }
+
+    $('.entrar-login').on('click',function(e){
+        var user = $('.user').val()
+        var senha = $('.senha').val()
+        e.preventDefault()
+        $.ajax({
+            url:urlLogin,
+            type:"POST",
+            dataType:"json",
+            data:{user,senha},
+            success(data){
+                $.ajax({
+                    url:"core/processa/logaUsuario.php",
+                    type:"POST",
+                    data:{
+                        login:data[0].user,
+                        senha:data[0].senha
+                    },
+                    success(){
+                        location.href="home.php"
+                    },
+                    error(){
+                        alert("erro")
+                    }
+                })
+            },
+            error(err){
+                alert(err)
+            }
+        })
+        
+    })

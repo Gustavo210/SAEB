@@ -5,7 +5,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
   <div class="row m-0">
     <div class="col-sm-auto apresentacao">
 
-      <strong>Bem Vindo</strong> ao painel de gerenciamento do aplicativo SAEB Escola
+      <strong>Bem Vindo</strong> ao painel de gerenciamento do aplicativo SABE Escola
 
     </div>
     <div class="col-sm-auto"></div>

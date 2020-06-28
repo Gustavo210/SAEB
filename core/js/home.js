@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     $.ajax({
         url: urlAluno,
         type: 'get',
@@ -7,6 +8,7 @@ $(document).ready(function () {
             $('.aluno_row').html(resposta)
         },
         success(data) {
+            console.log(data)
             $('#retorno').remove()
             var count = 0
             for (let i = 0; i < data.length; i++) {

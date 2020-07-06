@@ -1,8 +1,58 @@
+var urlLogin = `https://crmg.herokuapp.com/api/v1/loginescola/`
+$('.entrar-login').on('click',function(e){
+    var user = $('.user').val()
+    var senha = $('.senha').val()
+    e.preventDefault()
+    $.ajax({
+        url:urlLogin,
+        type:"POST",
+        dataType:"json",
+        data:{user,senha},
+        beforeSend(){
+            $('.entrar-login')
+            .attr("disabled", true)
+            .html(`<span class="spinner-border spinner-border-sm m-1" role="status" aria-hidden="trues"></span><b> Carregando...</b>`)
+        },
+        success(data){
+            console.log(data)
+            localStorage.setItem("id",data[0].id)
+            localStorage.setItem("nome",data[0].nome)
+            localStorage.setItem("user",data[0].user)
+
+            $.ajax({
+                url:"core/processa/logaUsuario.php",
+                type:"POST",
+                data:{
+                    login:data[0].user,
+                    senha:data[0].senha
+                },
+                success(){
+                    location.href="home.php"
+                },
+                error(){
+                    $('.entrar-login')
+                    .attr("disabled", false)
+                    .html(`<strong>Entrar</strong>`)
+                    msgError("Erro ao conectar")
+                }
+            })
+        },
+        error(){
+            $('.entrar-login')
+            .attr("disabled", false)
+            .html(`<strong>Entrar</strong>`)
+            msgError("Erro ao conectar")
+        }
+    })
+    
+})
+var idUsuario =localStorage.getItem("id")
+
+var listaColaboradores = `http://crmg.herokuapp.com/api/v1/escola/${idUsuario}/professores/`
 var urlColaborador = `https://crmg.herokuapp.com/api/v1/professor/`
 var urlAluno = `https://crmg.herokuapp.com/api/v1/aluno/`
 var urlInstituicao = `https://crmg.herokuapp.com/api/v1/escola/`
-var urlLogin = `https://crmg.herokuapp.com/api/v1/loginescola/`
-var token = `Token f77f538699515c7177256df7429365cb7a7ed6be`
+var token = `Token 6d60623d8e4a17af092bcb3068783b302198ae63`
 var resposta = `<div id="retorno">carregando</div>`
 var erro = `<div id="retorno">A pagina não foi encontrada</div>`
 
@@ -52,10 +102,10 @@ $('.cpf').mask('000.000.000-00');
 $('.cnpj').mask('00.000.000/0000-00');
 $('.telefone').mask('(00) 0 0000-0000');
 
-function popError(param){
+function msgError(param){
     $.confirm({
-        title: 'Erro',
-        content: `Erro ao cadastrar ${param}`,
+        title: '',
+        content: param,
         type: 'red',
         typeAnimated: true,
         buttons: {
@@ -69,34 +119,4 @@ function popError(param){
     });
 }
 
-    $('.entrar-login').on('click',function(e){
-        var user = $('.user').val()
-        var senha = $('.senha').val()
-        e.preventDefault()
-        $.ajax({
-            url:urlLogin,
-            type:"POST",
-            dataType:"json",
-            data:{user,senha},
-            success(data){
-                $.ajax({
-                    url:"core/processa/logaUsuario.php",
-                    type:"POST",
-                    data:{
-                        login:data[0].user,
-                        senha:data[0].senha
-                    },
-                    success(){
-                        location.href="home.php"
-                    },
-                    error(){
-                        alert("erro")
-                    }
-                })
-            },
-            error(err){
-                alert(err)
-            }
-        })
-        
-    })
+

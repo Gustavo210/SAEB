@@ -25,10 +25,6 @@
                     </fieldset>
                     <span class="tag">Nascimento:</span>
                     <input class="form-control datanasc" type="text">
-                    <span class="tag">Turma:</span>
-                    <select class="turma form-control">
-                        <option value="">Turma</option>
-                    </select>
                     <span class="tag">Professor:</span>
                     <select class="professor form-control">
                         <option value="">Professor</option>
@@ -39,10 +35,15 @@
                     <input class="form-control matricula" type="text">
                     <span class="tag">Telefone Responsavel:</span>
                     <input class="form-control telefone" type="text">
+                    <div class=" p-0 m-0 row ">
+                    <div class="p-0 m-0 col-2 col-sm-2">
+                        <a class="btn mt-3 btn-danger  " href="javascript:history.back()">Voltar</a>
+                    </div>
+                    <div class="p-0 m-0 col-10 col-sm-10">
+                        <button class="btn mt-3 btn-primary btn-block " id="salvar_cadastro">Adicionar</button>
+                    </div>
 
-                    <button class="btn btn-primary btn-block" id="salvar_cadastro">Enviar</button>
-                    <br>
-                    <a class="btn btn-danger" href="javascript:history.back()">Voltar</a>
+                </div>
                 </div>
                 
             </div>
@@ -52,9 +53,10 @@
     <script>
         $(document).ready(function(){
             $.ajax({
-                url:urlColaborador,
+                url:listaColaboradores,
                 headers: {"Authorization": token},
                 success(respose){
+                    console.log(respose)
                     respose.map(opt=>{
                         $('.professor ').append(`
                         <option value="${opt.id}">${opt.nome}</option>
@@ -62,17 +64,7 @@
                     })
                 }
             })
-            $.ajax({
-                url:urlInstituicao,
-                headers: {"Authorization": token},
-                success(respose){
-                    respose.map(escola=>{
-                        $('.turma ').append(`
-                        <option value="${escola.id}">${escola.nome}</option>
-                        `)
-                    })
-                }
-            })
+
             $.ajax({
             url:`${urlAluno + <?=$_POST['id']?>}`,
             headers: {"Authorization": token},
@@ -81,7 +73,6 @@
                 if(response.sexo=="M"){$('.generoM').attr('checked',true)}
                     else if(response.sexo=="F"){$('.generoF').attr('checked',true)}
                 $('.datanasc').val(dateToEN(response.datanasc))
-                $('.turma').val(response.turma)
                 $('.professor').val(response.professor)
                 $('.responsavel').val(response.nome_responsavel)
                 $('.telefone').val(formataTelefone(response.telefone_responsavel))
@@ -98,9 +89,9 @@
             var dataform = $('.datanasc').val().split('/')
             if(dataform[0]<1 || dataform[0]>31 ||
                 dataform[1]<1||dataform[1]>12||
-                dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+                dataform[3]<1980||dataform[3]>2050){msgError("Erro ao cadastrar data"); return}
             var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
-            var turma = $('.turma').val()
+            var turma = idUsuario
             var professor = $('.professor').val()
             var nome_responsavel = $('.responsavel').val()
             var matricula = $('.matricula').val()
@@ -145,11 +136,11 @@
                     }
                 });
             },
-            error(){popError("Aluno")}
+            error(){msgError("Erro ao cadastrar aluno")}
         
         })
     }else{
-            popError("Aluno")
+        msgError("Erro ao cadastrar aluno")
         }
     })
 

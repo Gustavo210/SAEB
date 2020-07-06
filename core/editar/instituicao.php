@@ -1,4 +1,5 @@
-<div class="container">
+<?php header('location:home.php');die();?>
+<!-- <div class="container">
     <h1 class='text-center mt-3 mb-4'>Altera Instítuição</h1>
     <div class="container-fluid">
         <div class="row">
@@ -116,11 +117,11 @@
                     }
                 });
             },
-            error(){popError("Instituição")}
+            error(){msgError("Erro ao cadastrar instituição")}
         
         })
     }else{
-            popError("Instituição")
+        msgError("Erro ao cadastrar instituição")
         }
     })
-</script>
+</script> -->

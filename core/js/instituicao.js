@@ -34,7 +34,7 @@ $(document).ready(function () {
         if(estadual.is(':checked')){
             var tipo = "E"
         }else{
-            popError("Tipo de Intituição"); return
+            msgError("Erro ao cadastrar tipo de intituição"); return
         }
         if(!$('.form-control').hasClass('erro')){
 
@@ -61,24 +61,15 @@ $(document).ready(function () {
                     }
                 });
             },
-            error(){popError("Instituição")}
+            error(){msgError("Erro ao cadastrar instituição")}
         })
     }else{
-        popError("Instituição")
+        msgError("Erro ao cadastrar instituição")
     }
 
     })
 
 
-    $.ajax({
-        url:urlColaborador,
-        headers: {"Authorization": token},
-        success(respose){
-            respose.map(professor=>{
-                $('.diretor').append(`<option value="${professor.id}">${professor.nome}</option>`)
-            })
-        }
-    })
     $('.aba-instituicao').css("background-color", "#298C7C")
     $.ajax({
         url: urlInstituicao,
@@ -133,6 +124,7 @@ $(document).ready(function () {
                                 text: `Excluir`,
                                 btnClass: 'btn-red',
                                 action: function () {
+                                    if(dados.id != idUsuario){
                                     $.confirm({
                                         title: `Deseja excluir ${dados.user}?`,
                                         content: `O usuário ${dados.user} será apagado do sistema!!`,
@@ -161,6 +153,7 @@ $(document).ready(function () {
                                                             });
                                                         }
                                                     })
+                                                
                                                 }
                                             },
                                             cancelAction: {
@@ -171,6 +164,9 @@ $(document).ready(function () {
                                             }
                                         }
                                     });
+                                }else{
+                                    msgError("Você não pode deletar este usuário.")
+                                }
                                 }
                             },
                             Editar: {

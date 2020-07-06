@@ -23,10 +23,6 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
                 </fieldset>
                 <span class="tag">Nascimento:</span>
                 <input class="form-control datanasc" type="text">
-                <span class="tag">Turma:</span>
-                <select class="turma form-control">
-                    <option value="">Turma</option>
-                </select>
                 <span class="tag">Professor:</span>
                 <select class="professor form-control">
                     <option value="">Professor</option>
@@ -37,16 +33,22 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
                 <input class="form-control matricula" type="text">
                 <span class="tag">Telefone Responsavel:</span>
                 <input class="form-control telefone" type="text">
-
-                <button class="btn mt-3 btn-primary btn-block " id="salvar_cadastro">Enviar</button>
-                <a class="btn mt-3 btn-danger " href="home.php">Voltar</a>
+                <div class=" p-0 m-0  row d-flex justify-content-bteween">
+            <div class="p-0 m-0 col-2 col-sm-2">
+                <a class="btn mt-3 btn-danger  " href="home.php">Voltar</a>
+            </div>
+            <div class="p-0 m-0 col-10 col-sm-10">
+                <button class="btn mt-3 btn-primary btn-block "id="salvar_cadastro">Adicionar</button>
+            </div>
+            
+        </div>
             </div>
             <div class="col-sm-8 p-4">
                 <input type="text" placeholder="Pesquisa" class="form-control m-2 filter">
                 <div class="row p-0 m-0">
-                                <div class="col dados">Nome</div>
-                                <div class="col dados">Turma</div>
-                                <div class="col dados">Matrícula</div>
+                                <div class="col-3 dados">Nome</div>
+                                <div class="col-5 dados">Turma</div>
+                                <div class="col-3 dados">Matrícula</div>
                                 <div class="col dados"></div>
                             </div>
                 <div class="resposta"></div>

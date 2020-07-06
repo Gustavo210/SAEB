@@ -2,13 +2,13 @@ $(document).ready(function () {
     $('#salvar_cadastro').on('click',function(){
         $('.form-control').removeClass('erro')
         var nome = $('.nome').val()
-        var escola = $('.escola').val()
+        var escola = idUsuario
         var telefone = $('.telefone').val()
         var cpf = $('.cpf').val()
         var dataform = $('.datanasc').val().split('/')
         if(dataform[0]<1 || dataform[0]>31 ||
             dataform[1]<1||dataform[1]>12||
-            dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+            dataform[3]<1980||dataform[3]>2050){$('.datanasc').addClass('erro');}
         var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
         var email = $('.email').val()
         var user = $('.user').val()
@@ -16,8 +16,6 @@ $(document).ready(function () {
                     
         if(nome.length<=2)
             {$('.nome').addClass('erro');}
-        if(escola=="")
-            {$('.escola').addClass('erro');}
         if(telefone.length<=10)
             {$('.telefone').addClass('erro');}
         if(cpf.length<11)
@@ -56,12 +54,12 @@ $(document).ready(function () {
                     });
                 },
                 error(){
-                    popError("Colaborador")
+                    msgError("Erro ao cadastrar colaborador")
                 }
             })
 
         }else{
-            popError("Colaborador")
+            msgError("Erro ao cadastrar colaborador")
         }
     })
 
@@ -78,17 +76,21 @@ $(document).ready(function () {
     $.ajax({
         url: urlColaborador,
         headers: {"Authorization": token},
+        beforeSend(){
+            $(".resposta").text("Carregando...")
+        },
         success(data) {
-
+            $(".resposta").text("")
             data.map(dados => {
 
                 $.ajax({
                     url:`${urlInstituicao}${dados.escola}`,
                     headers: {"Authorization": token},
                     success(response){
+                        if(dados.ativo == true){
                 $('.resposta').append(`<div usuario="${dados.id}" class="mt-1 items mr-0 ml-0 mb-1 p-0 row">
-                                            <div class="col col-sm-3 data">${dados.nome}</div>
-                                            <div class="col col-sm-3 data">${response.nome}</div>
+                                            <div class="col col-sm-4 data">${dados.nome}</div>
+                                            <div class="col col-sm-4 data">${response.nome}</div>
                                             <div class="col col-sm-3 data">${formataTelefone(dados.telefone)}</div>
                                             <div class="col-0 data"><button type="button" class="btn btn-primary dado${dados.id}"><i class="fas fa-plus"></i></button>
                                             </div>
@@ -136,55 +138,6 @@ $(document).ready(function () {
                             });
                         },
                         buttons: {
-                            Excluir: {
-                                text: `Excluir`,
-                                btnClass: 'btn-red',
-                                action: function () {
-
-                                    $.confirm({
-                                        title: `Deseja excluir ${dados.user}?`,
-                                        content: `
-                                        <form action="editar.php?type=colaborador&id=${dados.id}" class="form" method="post">
-                                            O usuário ${dados.user} será apagado do sistema!!
-                                        </form>
-                                        `,
-                                        autoClose: 'cancelAction|8000',
-                                        buttons: {
-                                            deleteUser: {
-                                                text: 'Excluir',
-                                                btnClass: 'btn-red',
-                                                action: function () {
-                                                    $.ajax({
-                                                        url: `${urlColaborador + dados.id}`,
-                                                        headers: {"Authorization": token},
-                                                        type:"DELETE",
-                                                        success(){
-                                                            $.alert({
-                                                                title: "",
-                                                                content: 'Usuário deletado com sucesso.',
-                                                                buttons: {
-                                                                    confirmar: {
-                                                                        text: "Ok",
-                                                                        action: function () {
-                                                                            linha.remove()   
-                                                                        }
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    })
-                                                }
-                                            },
-                                            cancelAction: {
-                                                text: 'Cancelar',
-                                                action: function () {
-                                                    $.alert('Ação cancelada.');
-                                                }
-                                            }
-                                        }
-                                    });
-                                }
-                            },
                             Editar: {
                                 text: `Editar`,
                                 btnClass: 'btn-blue',
@@ -197,7 +150,7 @@ $(document).ready(function () {
                         
                     });
                 })
-            }                                                
+            } }                                               
         })
             })
 

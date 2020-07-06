@@ -5,7 +5,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
   <div class="row m-0">
     <div class="col-sm-auto apresentacao">
 
-      <strong>Bem Vindo</strong> ao painel de gerenciamento do aplicativo SABE Escola
+      <strong>Bem Vindo</strong> ao painel de gerenciamento do aplicativo SABEscola
 
     </div>
     <div class="col-sm-auto"></div>
@@ -32,7 +32,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
       <div class="colaborador_row"></div>
     </div>
 
-    <div class="col-sm  card-instituicoes">
+    <!-- <div class="col-sm  card-instituicoes">
       <div class="title row d-flex justify-content-between">
         <div class="col-auto">
           <h3>Instituições</h3>
@@ -48,7 +48,7 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
       </div>
       </div>
       <div class="escola_row"></div>
-    </div>
+    </div> -->
 
     <div class="col-sm  card-aluno">
       <div class="title row d-flex justify-content-between">

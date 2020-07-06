@@ -1,6 +1,7 @@
 <?php require_once "cabecalho.php";
+header('location:home.php');die();
 if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
-
+<!-- 
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-4">
@@ -50,6 +51,6 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
             <div class="resposta"></div>
             <div id="mensagem"></div>
             </div>
-        </div>
+        </div> -->
 
 <?php require_once "rodape.php";

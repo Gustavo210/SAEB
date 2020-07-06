@@ -5,7 +5,7 @@ label{
     font-weight: 700;
 }
 .titulo-login{
-    font-size: 3em;
+    font-size: 2rem;
     margin-top: 10px;
     margin-bottom: 30px;
     font-weight: 700;
@@ -14,7 +14,12 @@ label{
 }
 
 body{
-    background-color: #03A696;
+    /* background-color: #03A696; */
+    background: url(../img/bg.jpg)no-repeat right top fixed;
+    background-clip: content-box;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }
 .loginCadastro {
     background-color: rgba(0, 0, 0, 0);
@@ -24,8 +29,11 @@ body{
     width: 100%;
 }
 .fundo{
-    background-color: white;
+    background-color: #ffffff;;
     padding: 20px;
     margin: 2%;
     border-radius: 5px;
+}
+.logo-name{
+    margin-bottom: 5%;
 }

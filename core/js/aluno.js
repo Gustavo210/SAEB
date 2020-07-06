@@ -7,9 +7,9 @@ $(document).ready(function () {
         var dataform = $('.datanasc').val().split('/')
         if(dataform[0]<1 || dataform[0]>31 ||
             dataform[1]<1||dataform[1]>12||
-            dataform[3]<1980||dataform[3]>2050){popError("Data"); return}
+            dataform[3]<1980||dataform[3]>2050){$('.datanasc').addClass('erro');}
         var datanasc = `${dataform[2]}-${dataform[1]}-${dataform[0]}`
-        var turma = $('.turma').val()
+        var turma = idUsuario
         var professor = $('.professor').val()
         var matricula = $('.matricula').val()
         var nome_responsavel = $('.responsavel').val()
@@ -20,8 +20,7 @@ $(document).ready(function () {
 
         if(datanasc.length!=10)
             {$('.datanasc').addClass('erro');}
-        if(turma=="")
-            {$('.turma').addClass('erro');}
+
         if(professor=="")
             {$('.professor').addClass('erro');}
         if(matricula<=2)
@@ -30,16 +29,16 @@ $(document).ready(function () {
             {$('.responsavel').addClass('erro');}
         if(telefone_responsavel.length<10)
             {$('.telefone').addClass('erro');}
+            if(!$('.form-control').hasClass('erro')){
         if(sexoM.is(':checked')){
             var sexo = "M"
         }else
         if(sexoF.is(':checked')){
             var sexo = "F"
         }else{
-            popError("Sexo"); return
+            msgError("Erro ao cadastrar sexo"); return
         }
 
-        if(!$('.form-control').hasClass('erro')){
 
         $.ajax({
             url: urlAluno,
@@ -83,13 +82,13 @@ $(document).ready(function () {
         })
 
     }else{
-        popError("Aluno")
+        msgError("Erro ao cadastra aluno")
     }
     })
 
 
     $.ajax({
-        url:urlColaborador,
+        url:`http://crmg.herokuapp.com/api/v1/escola/${idUsuario}/professores/`,
         headers: {"Authorization": token},
         success(respose){
             respose.map(opt=>{
@@ -113,19 +112,24 @@ $(document).ready(function () {
         success(data) {
             data.map(dados => {
                 $.ajax({
-                    url: `${urlInstituicao}${dados.turma}`,
+                    url: `http://crmg.herokuapp.com/api/v1/professor/${dados.professor}/turmas/`,
                     headers: {"Authorization": token},
                     success(instituicao) {
-                        $('.resposta').append(`<div usuario="${dados.id}" class="mt-1 items mr-0 ml-0 mb-1 p-0 row">
-                                                    <div class="col col-sm-3 data">${dados.nome}</div>
-                                                    <div class="col col-sm-3 data">${instituicao.nome}</div>
-                                                    <div class="col col-sm-3 data"> @${dados.matricula}</div>
-                                                    <div class="col-0 data">
-                                                        <button type="button" class="btn btn-primary dado_${dados.id}">
-                                                            <i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>`)
+                        for (let q = 0; q < instituicao.length; q++) {
+                            if(instituicao[q].id == dados.turma && instituicao[q].professor==dados.professor ){
+
+                        var conteudo =`<div usuario="${dados.id}" class="mt-1 items mr-0 ml-0 mb-1 p-0 row">
+                        <div class="col col-sm-3 data">${dados.nome}</div>
+                        <div class="col col-sm-5 data">${instituicao[q].nome}</div>
+                                <div class="col col-sm-3 data"> @${dados.matricula}</div>
+                                <div class="col-0 data">
+                                <button type="button" class="btn btn-primary dado_${dados.id}">
+                                <i class="fas fa-plus"></i>
+                                </button>
+                                </div>
+                                </div>`
+
+                        $('.resposta').append(conteudo)
 
 
                         $(`.dado_${dados.id}`).on('click', function () {
@@ -137,16 +141,9 @@ $(document).ready(function () {
                                     return $.ajax({
                                         url: urlAluno,
                                         headers: {"Authorization": token}
-
-
                                     }).done(function (data) {
                                         data.map(item => {
-
-                                            $.ajax({
-                                                url: `${urlInstituicao}${item.turma}`,
-                                                headers: {"Authorization": token},
-                                                success(escola) {
-                                                    
+                                                   
                                                     $.ajax({
                                                         url: `${urlColaborador}${item.professor}`,
                                                         headers: {"Authorization": token},
@@ -163,7 +160,7 @@ $(document).ready(function () {
                                                                 &nbsp Genero: ${retornaSexo(item.sexo)}<br>
                                                                 &nbsp Data de nascimento: ${dateToEN(item.datanasc)}<br><br>
                                                                         <h6>Escola</h6>
-                                                                &nbsp Turma: ${escola.nome}<br>
+                                                                &nbsp Turma: ${instituicao[q].nome}<br>
                                                                 &nbsp Professor: ${colaborador.nome}<br>
                                                                 &nbsp Matricula: @${item.matricula}<br>
                                                                 &nbsp Cadastro: ${dateToEN(item.criacao.substr(0,10))}<br><br>
@@ -174,8 +171,6 @@ $(document).ready(function () {
                                                             }
                                                         }
                                                     })
-                                                }
-                                            })
                                         })
                                     }).fail(function () {
                                         self.setContent('Erro ao buscar dados');
@@ -239,6 +234,8 @@ $(document).ready(function () {
                                 }
                             });
                         })
+                    }
+                }
                     }
                 })
             })

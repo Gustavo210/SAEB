@@ -9,11 +9,6 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
         <span>Nome do professor:</span>
         <input type="text" class="form-control nome" >
 
-        <span>Escola:</span>
-        <select class="escola form-control">
-            <option value="">escola</option>
-        </select>
-
         <span>Telefone:</span>
         <input type="text" class="form-control telefone">
 
@@ -28,15 +23,21 @@ if(!isset($_SESSION['user'])){header('location: index.php');die();}?>
         <input type="text" class="form-control user" >
         <span>Senha:</span>
         <input type="password" class="form-control senha" >
-
-        <button class="btn mt-3 btn-primary btn-block "id="salvar_cadastro">Adicionar</button>
-        <a class="btn mt-3 btn-danger " href="home.php">Voltar</a>
+        <div class=" p-0 m-0  row d-flex justify-content-bteween">
+            <div class="p-0 m-0 col-2 col-sm-2">
+                <a class="btn mt-3 btn-danger  " href="home.php">Voltar</a>
+            </div>
+            <div class="p-0 m-0 col-10 col-sm-10">
+                <button class="btn mt-3 btn-primary btn-block "id="salvar_cadastro">Adicionar</button>
+            </div>
+            
+        </div>
         </div>
             <div class="col-sm-8 p-4">
             <input type="text" placeholder="Pesquisa" class="form-control m-2 filter">
             <div class="row p-0 m-0">
-                                    <div class="col col-sm-3 dados">Nome</div>
-                                    <div class="col col-sm-3 dados">Escola</div>
+                                    <div class="col col-sm-4 dados">Nome</div>
+                                    <div class="col col-sm-4 dados">Escola</div>
                                     <div class="col col-sm-2 dados">Telefone</div>
                                     <div class="col dados"></div>
                                 </div>

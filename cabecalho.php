@@ -30,15 +30,12 @@
       aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand "style="color:#fff" href="home.php"><?php echo $_SESSION['usuario'];?></a>
+    <a class="navbar-brand "style="color:#fff;text-transform: capitalize;" href="home.php"><?php echo $_SESSION['usuario'];?></a>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
           <a class="nav-link aba-colaborador" style="color:#fff" href="professor.php"><i class="fas fa-users"></i> Colaborador</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link aba-instituicao"style="color:#fff" href="escola.php"><i class="fas fa-school"></i> Instituição</a>
         </li>
         <li class="nav-item">
           <a class="nav-link aba-aluno"style="color:#fff" href="aluno.php"><i class="fas fa-child"></i> Aluno</a>
